@@ -63,7 +63,8 @@
                     var manager = new THREE.LoadingManager();
                     var loader = new THREE.OBJLoader( manager );
                     loader.load( 'apartment.obj', function ( object ) {
-                        object.position.y = - 95;
+                        object.scale.set(15, 15, 15)
+                        object.position.y = - 195;
                         self.floorGroup.add( object );
                     } );
 
