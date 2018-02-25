@@ -16,11 +16,11 @@ We started with an empty wall where we wanted to place our AR Kitchen.
 
 ## Pre AR
 
-![Pre-AR](img/Previous to AR.jpg)
+![Pre-AR](img/Previous to AR.png)
 
 ## After AR
 
-![After-AR](img/After AR.jpg)
+![After-AR](img/After AR.png)
 
 
 ## Screen Recording AR - Click to Watch
