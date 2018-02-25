@@ -27,6 +27,7 @@
         </style>
         <link rel="stylesheet" href="js/common.css"/>
         <script src="js/three.min.js"></script>
+        <script src="https://threejs.org/examples/js/loaders/OBJLoader.js"></script>
         <script type="module" src="polyfill/XRPolyfill.js"></script>
         <script src="js/common.js"></script>
     </head>
@@ -40,7 +41,7 @@
         <script>
             /*
             ARSimplestExample shows how to populate the content scene 
-            */
+            */            
             class ARSimplestExample extends XRExampleBase {
                 constructor(domElement){
                     super(domElement, false)
@@ -57,8 +58,17 @@
                     this.floorGroup.add(box)
 
                     this.scene.background = new THREE.Color(0x222222)
+                    var self = this;
+
+                    var manager = new THREE.LoadingManager();
+                    var loader = new THREE.OBJLoader( manager );
+                    loader.load( 'apartment.obj', function ( object ) {
+                        object.position.y = - 95;
+                        self.floorGroup.add( object );
+                    } );
 
 
+/*
                     // Add the boom box
                     loadObj('apartment.obj').then(gltf => {
                         gltf.scene.scale.set(15, 15, 15)
@@ -69,6 +79,7 @@
                     }).catch((...params) =>{
                         console.error('could not load gltf', ...params)
                     })
+*/
                 }
             }
 
