@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>AR simplest example</title>
+        <title>Boombox</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
         <style>
@@ -27,20 +27,16 @@
         </style>
         <link rel="stylesheet" href="js/common.css"/>
         <script src="js/three.min.js"></script>
-        <script src="js/TeapotBufferGeometry.js"></script>
         <script type="module" src="polyfill/XRPolyfill.js"></script>
-        <script nomodule src="polyfill/webxr-polyfill.js"></script>
         <script src="js/common.js"></script>
-        
     </head>
     <body>
-        <div id="target" />
-
-        <div onclick="hideMe(this)" id="description">
-            <h2>Simplest AR</h2>
-            <h5>(click to dismiss)</h5>
-            <p>This example displays the Utah Teapot positioned in front of the viewer at head height.</p>
-        </div>
+    <div id="target" />
+    <div onclick="hideMe(this)" id="description">
+        <h2>Boombox</h2>
+        <h5>(click to dismiss)</h5>
+        <p>Shows a boombox in a VR environment.</p>
+    </div>
         <script>
             /*
             ARSimplestExample shows how to populate the content scene 
@@ -52,31 +48,27 @@
 
                 // Called during construction to allow the app to populate the THREE.Scene
                 initializeScene(){
-                    // Add a teapot at about eye level
-                    const geometry = new THREE.TeapotBufferGeometry(0.1)
-                    const materialColor = new THREE.Color()
-                    materialColor.setRGB(1.0, 1.0, 1.0)
-                    const material = new THREE.MeshLambertMaterial({
-                        color: materialColor,
-                        side: THREE.DoubleSide
-                    })
-                    const mesh = new THREE.Mesh(geometry, material)
-                    mesh.position.set(0, 1.4, -1)
-                    this.floorGroup.add(mesh)
-
                     // Add a box on the floor
                     const box = new THREE.Mesh(
                         new THREE.BoxBufferGeometry(0.1, 0.1, 0.1),
                         new THREE.MeshPhongMaterial({ color: '#DDFFDD' })
                     )
-                    box.position.set(0, 0.05, 0)
+                    box.position.set(0, 0, 0)
                     this.floorGroup.add(box)
 
-                    // Add some lights to the scene
-                    this.scene.add(new THREE.AmbientLight('#FFF', 0.2))
-                    const directionalLight = new THREE.DirectionalLight('#FFF', 0.6)
-                    directionalLight.position.set(0, 10, 0)
-                    this.scene.add(directionalLight)
+                    this.scene.background = new THREE.Color(0x222222)
+
+
+                    // Add the boom box
+                    loadObj('apartment.obj').then(gltf => {
+                        gltf.scene.scale.set(15, 15, 15)
+                        gltf.scene.position.set(0, 1, -1.2)
+                        gltf.scene.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI)
+
+                        this.floorGroup.add(gltf.scene)
+                    }).catch((...params) =>{
+                        console.error('could not load gltf', ...params)
+                    })
                 }
             }
 
