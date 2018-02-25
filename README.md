@@ -9,19 +9,7 @@ It needs the XRViewer from Mozilla [Link](https://itunes.apple.com/us/app/webxr-
 And you can head over to this url from the App referenced above.
 [Demo](https://jaimerosales.github.io/webxr-polyfill/)
 
-Here are some Videos on how it works.
-
-
-We started with an empty wall where we wanted to place our AR Kitchen.
-
-## Pre AR
-
-![Pre-AR](img/Previous to AR.png)
-
-## After AR
-
-![After-AR](img/After AR.png)
-
+Here is a Video on how it works.
 
 ## Screen Recording AR - Click to Watch
 
