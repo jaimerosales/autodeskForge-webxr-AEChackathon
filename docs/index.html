@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Boombox</title>
+        <title>Kitchen webAR / Forge</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
         <style>
@@ -25,23 +25,26 @@
                 font-size: 20px;
             }
         </style>
-        <link rel="stylesheet" href="js/common.css"/>
+        <link rel="stylesheet" href="../common.css"/>
         <script src="js/three.min.js"></script>
+        <script src="https://threejs.org/examples/js/loaders/MTLLoader.js"></script>
         <script src="https://threejs.org/examples/js/loaders/OBJLoader.js"></script>
-        <script type="module" src="polyfill/XRPolyfill.js"></script>
+        <script type="module" src="js/webxr-polyfill.js"></script>
         <script src="js/common.js"></script>
+        
     </head>
     <body>
-    <div id="target" />
-    <div onclick="hideMe(this)" id="description">
-        <h2>Boombox</h2>
-        <h5>(click to dismiss)</h5>
-        <p>Shows a boombox in a VR environment.</p>
-    </div>
+        <div id="target" />
+
+        <div onclick="hideMe(this)" id="description">
+            <h2>Simplest AR</h2>
+            <h5>(click to dismiss)</h5>
+            <p>This example displays the Utah Teapot positioned in front of the viewer at head height.</p>
+        </div>
         <script>
             /*
             ARSimplestExample shows how to populate the content scene 
-            */            
+            */
             class ARSimplestExample extends XRExampleBase {
                 constructor(domElement){
                     super(domElement, false)
@@ -49,38 +52,30 @@
 
                 // Called during construction to allow the app to populate the THREE.Scene
                 initializeScene(){
+
                     // Add a box on the floor
                     const box = new THREE.Mesh(
                         new THREE.BoxBufferGeometry(0.1, 0.1, 0.1),
                         new THREE.MeshPhongMaterial({ color: '#DDFFDD' })
                     )
-                    box.position.set(0, 0, 0)
+                    box.position.set(0, 0.05, 0)
                     this.floorGroup.add(box)
 
-                    this.scene.background = new THREE.Color(0x222222)
-                    var self = this;
-
-                    var manager = new THREE.LoadingManager();
-                    var loader = new THREE.OBJLoader( manager );
-                    loader.load( 'apartment.obj', function ( object ) {
-                        object.scale.set(0.15, 0.15, 0.15)
-                        object.position.set(0, 1, 3.2);
-                        self.floorGroup.add( object );
-                    } );
-
-
-/*
-                    // Add the boom box
-                    loadObj('apartment.obj').then(gltf => {
-                        gltf.scene.scale.set(15, 15, 15)
-                        gltf.scene.position.set(0, 1, -1.2)
-                        gltf.scene.quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI)
-
-                        this.floorGroup.add(gltf.scene)
+                    // Add the obj
+                    loadObj('obj/','kitchen.obj').then(object => {
+                        object.scale.set(1, 1, 1);
+                        object.position.set(0, 0, -5);
+                        this.floorGroup.add(object)
                     }).catch((...params) =>{
-                        console.error('could not load gltf', ...params)
+                        console.error('could not load obj file', ...params)
                     })
-*/
+
+
+                    // Add some lights to the scene
+                    this.scene.add(new THREE.AmbientLight('#777', 0.2));
+                    var pointLight = new THREE.PointLight( 0xffffff, 0.8 );
+                    pointLight.position.set(10, 10, 10);
+                    this.scene.add( pointLight );
                 }
             }
 
@@ -97,3 +92,4 @@
         </script>
     </body>
 </html>
+
