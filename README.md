@@ -4,7 +4,9 @@ This was a sample exploration using Autodesk Forge and WebXR, we wanted to find 
 
 We used Autodesk Forge for the translation of Revit files to OBJ in order to load it into the Scene of the WebRX. 
 
-It needs the XRViewer from Mozilla [Link](https://itunes.apple.com/us/app/webxr-viewer/id1295998056?mt=8)
+It needs the XRViewer from Mozilla 
+
+[![Link](img/webXR.png)](https://itunes.apple.com/us/app/webxr-viewer/id1295998056?mt=8)
 
 And you can head over to this url from the App referenced above.
 [Demo](https://jaimerosales.github.io/webxr-polyfill/)
